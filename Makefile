@@ -148,6 +148,10 @@ ifeq ($(ENABLE_TILT),loop)
 else
 ifeq ($(ENABLE_TILT),leapmotion)
 	TILT_LIBS := /usr/lib/Leap/libLeap.so -Wl,-rpath,/usr/lib/Leap
+else
+ifeq ($(ENABLE_TILT),spire)
+	TILT_LIBS := -lhidapi-hidraw
+endif
 endif
 endif
 endif
@@ -360,7 +364,11 @@ else
 ifeq ($(ENABLE_TILT),leapmotion)
 BALL_OBJS += share/tilt_leapmotion.o
 else
+ifeq ($(ENABLE_TILT),spire)
+BALL_OBJS += share/tilt_spire.o
+else
 BALL_OBJS += share/tilt_null.o
+endif
 endif
 endif
 endif
